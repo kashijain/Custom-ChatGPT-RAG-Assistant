@@ -1,60 +1,78 @@
-🚀 Custom ChatGPT (RAG-based AI Assistant)
-🧠 Overview
+# 🚀 Custom ChatGPT (RAG-based AI Assistant)
 
-A full-stack AI-powered assistant that allows users to upload PDFs and ask questions based on their content using Retrieval-Augmented Generation (RAG).
+> 💡 A modern AI-powered assistant to chat with your PDFs using RAG (Retrieval-Augmented Generation)
 
-This project combines LLMs + Vector Search + Full Stack Development to build a real-world AI product.
+---
 
-✨ Features
-📄 Upload and process PDF documents
-🔍 Semantic search using embeddings + FAISS
-💬 ChatGPT-like conversational interface
-📚 Context-aware answers from uploaded documents
-🧠 RAG pipeline (Retrieval + Generation)
-⚡ Fast document retrieval using vector similarity
-🧪 Demo mode (works without OpenAI quota)
-🎨 Modern aesthetic UI (React + Tailwind)
-🏗️ Tech Stack
-Frontend
-React (Vite)
-Tailwind CSS
-Framer Motion
-Axios
-Backend
-FastAPI (Python)
-FAISS (Vector Database)
-OpenAI API (Embeddings + LLM)
-Python (RAG pipeline)
-⚙️ How It Works
-User uploads a PDF
-Text is extracted and split into chunks
-Each chunk is converted into embeddings
-Embeddings are stored in FAISS
-User asks a question
-Relevant chunks are retrieved
-LLM generates answer using retrieved context
-📁 Project Structure
+## 🧠 Overview
+
+This is a **full-stack AI application** where users can upload PDF documents and ask questions based on their content.
+
+It combines:
+- 🤖 LLMs (AI)
+- 🔍 Vector Search (FAISS)
+- 🌐 Full Stack Development
+
+---
+
+## ✨ Features
+
+- 📄 Upload and analyze PDF documents  
+- 💬 ChatGPT-like conversational UI  
+- 🔍 Semantic search using embeddings + FAISS  
+- 🧠 Context-aware answers from documents  
+- ⚡ Fast retrieval using vector similarity  
+- 🧪 Demo mode (works without OpenAI quota)  
+- 🎨 Premium UI (React + Tailwind + Framer Motion)
+
+---
+
+## 🏗️ Tech Stack
+
+### 🎨 Frontend
+- React (Vite)
+- Tailwind CSS
+- Framer Motion
+- Axios
+
+### ⚙️ Backend
+- FastAPI (Python)
+- FAISS (Vector Database)
+- OpenAI API (Embeddings + LLM)
+- Python (RAG Pipeline)
+
+---
+
+## ⚙️ How It Works
+
+1. 📄 Upload PDF  
+2. ✂️ Split into chunks  
+3. 🔢 Convert to embeddings  
+4. 📦 Store in FAISS  
+5. ❓ Ask question  
+6. 🔍 Retrieve relevant chunks  
+7. 🤖 Generate answer  
+
+---
+
+## 📁 Project Structure
 custom-chatgpt-rag/
 ├── backend/
-│   ├── app/
-│   ├── uploads/
-│   ├── faiss_index/
-│   ├── main.py
-│   └── .env.example
-│
 ├── frontend/
-│   ├── src/
-│   ├── components/
-│   └── App.jsx
-│
-└── README.md
-🔑 Environment Setup
+├── README.md
 
-Create a .env file inside backend/:
 
+---
+
+## 🔑 Environment Setup
+
+Create a `.env` file inside `backend/`:
+
+```env
 OPENAI_API_KEY=your_api_key_here
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 FALLBACK_EMBEDDING_DIM=1536
+
 🚀 Run Locally
 Backend
 cd backend
@@ -65,30 +83,23 @@ cd frontend
 npm install
 npm run dev
 🌐 API Endpoints
-POST /api/upload → Upload PDF
-POST /api/chat → Ask questions
-⚠️ Notes
-If OpenAI quota is not available, app runs in demo mode
-.env file is not included for security reasons
-💼 Use Cases
-📚 Study assistant for notes & books
-📄 Resume / document analysis
-🧠 Knowledge base chatbot
-🏢 Internal company document assistant
+Method	Endpoint	Description
+POST	/api/upload	Upload PDF
+POST	/api/chat	Ask questions
+
 📸 Screenshots
-<img width="1852" height="947" alt="image" src="https://github.com/user-attachments/assets/36f5e95e-b9dc-48f0-b262-be8c4c86dbc9" />
+<img width="1853" height="950" alt="image" src="https://github.com/user-attachments/assets/c788b4da-250f-4a2e-bca6-e703b1702cd6" />
+
 🚀 Future Improvements
 Multi-PDF support
 Chat history
-Authentication system
+Authentication
 Source highlighting
-Deployment (Vercel + Render)
+Deployment
 👨‍💻 Author
 
 Kashish Jain
+🔗 GitHub: https://github.com/kashijain
 
-GitHub: https://github.com/kashijain
-LinkedIn: https://www.linkedin.com/in/kashishjain-tech/
-⭐ If you like this project
+🔗 LinkedIn: https://www.linkedin.com/in/kashishjain-tech/
 
-Give it a ⭐ on GitHub and support the project!
