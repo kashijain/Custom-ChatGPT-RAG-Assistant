@@ -1,0 +1,5 @@
+.env
+.eve
+__pycache__/
+*.pyc
+venv/
