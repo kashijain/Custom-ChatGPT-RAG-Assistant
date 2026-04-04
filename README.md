@@ -73,6 +73,8 @@ OPENAI_API_KEY=your_api_key_here
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 FALLBACK_EMBEDDING_DIM=1536
 
+---
+
 🚀 Run Locally
 Backend
 cd backend
@@ -82,13 +84,20 @@ Frontend
 cd frontend
 npm install
 npm run dev
+
+---
+
 🌐 API Endpoints
 Method	Endpoint	Description
 POST	/api/upload	Upload PDF
 POST	/api/chat	Ask questions
 
+---
+
 📸 Screenshots
 <img width="1853" height="950" alt="image" src="https://github.com/user-attachments/assets/c788b4da-250f-4a2e-bca6-e703b1702cd6" />
+
+---
 
 🚀 Future Improvements
 Multi-PDF support
@@ -96,6 +105,9 @@ Chat history
 Authentication
 Source highlighting
 Deployment
+
+---
+
 👨‍💻 Author
 
 Kashish Jain
