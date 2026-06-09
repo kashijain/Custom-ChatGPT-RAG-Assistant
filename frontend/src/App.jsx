@@ -24,8 +24,15 @@ const toFriendlyBackendMessage = (message, fallbackMessage) => {
 
 const parseApiError = async (response, fallbackMessage) => {
   try {
-    const data = await response.json();
-    return toFriendlyBackendMessage(data.detail, fallbackMessage);
+    const text = await response.text();
+    console.log("API Error raw response:", text);
+    if (!text) return fallbackMessage;
+    try {
+      const data = JSON.parse(text);
+      return toFriendlyBackendMessage(data.detail, fallbackMessage);
+    } catch {
+      return text.slice(0, 150) || fallbackMessage;
+    }
   } catch {
     return fallbackMessage;
   }
@@ -71,11 +78,42 @@ function App() {
         body: formData
       });
 
+      const responseText = await response.text();
+      console.log("Upload response status:", response.status);
+      console.log("Upload response text:", responseText);
+
       if (!response.ok) {
-        throw new Error(await parseApiError(response, "Failed to upload PDF."));
+        let errorMsg = "Failed to upload PDF.";
+        if (responseText) {
+          try {
+            const errorData = JSON.parse(responseText);
+            errorMsg = toFriendlyBackendMessage(errorData.detail, errorMsg);
+          } catch {
+            errorMsg = responseText.slice(0, 150) || errorMsg;
+          }
+        }
+        throw new Error(errorMsg);
       }
 
-      const data = await response.json();
+      let data = {};
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error("Failed to parse JSON response:", e);
+          throw new Error("Invalid response format from server.");
+        }
+      } else {
+        console.warn("Upload response was empty.");
+        data = {
+          message: "PDF uploaded successfully (empty server response)",
+          filename: file.name,
+          active_document: file.name,
+          embedding_mode: "fallback",
+          demo_mode: true
+        };
+      }
+
       const uploadedDocument = data.active_document || data.filename || file.name;
       setIsDemoMode(Boolean(data.demo_mode));
 
@@ -127,11 +165,36 @@ function App() {
         })
       });
 
+      const responseText = await response.text();
+      console.log("Chat response status:", response.status);
+      console.log("Chat response text:", responseText);
+
       if (!response.ok) {
-        throw new Error(await parseApiError(response, "Failed to get AI response."));
+        let errorMsg = "Failed to get AI response.";
+        if (responseText) {
+          try {
+            const errorData = JSON.parse(responseText);
+            errorMsg = toFriendlyBackendMessage(errorData.detail, errorMsg);
+          } catch {
+            errorMsg = responseText.slice(0, 150) || errorMsg;
+          }
+        }
+        throw new Error(errorMsg);
       }
 
-      const data = await response.json();
+      let data = {};
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error("Failed to parse chat response JSON:", e);
+          throw new Error("Invalid response format from server.");
+        }
+      } else {
+        console.warn("Chat response was empty.");
+        throw new Error("Server returned an empty response.");
+      }
+
       setIsDemoMode(Boolean(data.demo_mode));
 
       setMessages((current) => [
