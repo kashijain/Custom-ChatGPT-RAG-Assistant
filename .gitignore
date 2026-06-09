@@ -1,0 +1,18 @@
+# Python backend ignores
+backend/venv/
+backend/.env
+backend/__pycache__/
+backend/*.pyc
+backend/uploads/
+backend/faiss_index/
+
+# React frontend ignores
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Operating System files
+.DS_Store
+Thumbs.db
