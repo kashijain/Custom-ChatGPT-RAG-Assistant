@@ -1,0 +1,34 @@
+services:
+  # Backend Web Service (FastAPI)
+  - type: web
+    name: custom-chatgpt-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false # User will fill this in via the Render Dashboard
+      - key: OPENAI_EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: FALLBACK_EMBEDDING_DIM
+        value: "1536"
+      - key: FRONTEND_URL
+        value: https://your-frontend-name.onrender.com # Placeholder: Replace with actual frontend URL after deployment
+      - key: CORS_ORIGINS
+        value: https://your-frontend-name.onrender.com # Placeholder: Replace with actual frontend URL after deployment
+
+  # Frontend Static Site (React + Vite)
+  - type: web
+    name: custom-chatgpt-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://custom-chatgpt-backend.onrender.com # Placeholder: Replace custom-chatgpt-backend with your backend name
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

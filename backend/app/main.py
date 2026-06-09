@@ -33,15 +33,27 @@ from .routes import upload, chat
 app = FastAPI(title="Custom ChatGPT RAG Assistant", version="1.0.0")
 
 # CORS is required because the Vite frontend runs on a different origin/port
-# than FastAPI during local development.
+# than FastAPI. In production, we allow the deployed Render frontend URL.
+allowed_origins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+]
+
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    origins = [orig.strip() for orig in frontend_url.split(",") if orig.strip()]
+    allowed_origins.extend(origins)
+
+cors_origins_env = os.getenv("CORS_ORIGINS")
+if cors_origins_env:
+    origins = [orig.strip() for orig in cors_origins_env.split(",") if orig.strip()]
+    allowed_origins.extend(origins)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:5174",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

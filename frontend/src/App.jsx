@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import Sidebar from "./components/Sidebar";
@@ -6,7 +6,7 @@ import ChatWindow from "./components/ChatWindow";
 import InputBox from "./components/InputBox";
 import UploadBox from "./components/UploadBox";
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = `${import.meta.env.VITE_API_URL || ""}/api`;
 
 const toFriendlyBackendMessage = (message, fallbackMessage) => {
   const value = String(message || "").toLowerCase();
@@ -33,7 +33,7 @@ const parseApiError = async (response, fallbackMessage) => {
 
 const toNetworkErrorMessage = (error) => {
   if (error instanceof TypeError && error.message === "Failed to fetch") {
-    return "Unable to reach the backend at http://127.0.0.1:8000. Please confirm FastAPI is running and CORS allows the Vite frontend origin.";
+    return `Unable to reach the backend at ${API_BASE_URL}. Please confirm FastAPI is running and CORS allows the Vite frontend origin.`;
   }
 
   return toFriendlyBackendMessage(
